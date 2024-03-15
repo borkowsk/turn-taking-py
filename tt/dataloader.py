@@ -9,9 +9,8 @@ from itertools import chain
 import numpy as np
 import pandas as pd
 
-
+wb_level = 0  # Log level for this file
 PathLike = str | bytes | os.PathLike
-
 
 class Dataloader:
     """Dataloader class.
@@ -56,7 +55,7 @@ class Dataloader:
         Parameters
         ----------
         propmap
-            Path to a propperty map file.
+            Path to a property map file.
         """
         self.path = Path(path).absolute()
         self.propmap = propmap
@@ -101,6 +100,9 @@ class Dataloader:
         **kwds
             Passed to :py:meth:`read_frame`.
         """
+        if wb_level > 0:
+            print("Dataloader.load(self, **kwds: Any)...")
+
         for idx, path in enumerate(self.iterpaths(), 1):
             df = self.read_frame(path, **kwds)
             df.insert(0, "idx", idx)
@@ -124,6 +126,9 @@ class Dataloader:
             be returned.
         """
         # pylint: disable=too-many-locals
+        if wb_level > 1:
+            print("Dataloader.read_frame(...)")
+
         ext = path.suffix
         if ext == ".txt":
             sep = "\t"
@@ -194,7 +199,7 @@ class Dataloader:
         else:
             raise NotImplementedError
 
-        out = out.dt.round("L")
+        out = out.dt.round("ms") # Need be "ms" instead of "L" todo TEST!
         return out
 
     def sanitize_strings(self, s: pd.Series) -> pd.Series:
@@ -288,7 +293,7 @@ class Dataloader:
 
     @classmethod
     def add_flags(cls, df: pd.DataFrame) -> pd.DataFrame:
-        """Add flags decribing different types of records."""
+        """Add flags describing different types of records."""
         df = df.assign(
             overlap_w=df["offset_end"] <= 0,
             overlap_b=(df["offset_end"] > 0) & (df["fto"] < 0),
