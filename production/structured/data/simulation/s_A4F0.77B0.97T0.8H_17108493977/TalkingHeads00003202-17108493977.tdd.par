@@ -1,0 +1,723 @@
+DateTime	TIMEMARK:	20240319125637
+BCDhex	VERSION:	00003202	// TalkingHeadsPrototype
+
+long 	RANDSEED:	17108493977	// When it was 0, the time was used for initialisation
+int  	N_OF_AGENTS:	4	// Number of agents
+int  	GUESTXR_YN:	1	// Number of GuestXR, 0 or 1 only
+int  	V_WIDTH:	900	// Virtual width of environment
+int  	V_HEIGHT:	900	// Virtual height of environment
+int  	TABLE_D:	500	// Diameter of round table.
+int  	LETTS_p_STEP:	3	// How many 'phonemes' can agent speak per step (180 steps means 60 sec.)
+int  	TOKEN_V:	0	// Speech token in degrees (i.e. 5) or 0 for OFF
+float	STABLE_FORCE:	0.77	// External tension used when token is off
+float	TALK_THRES_MIN:	0.8	// Thresholds for speak are in range Min..0.99
+float	BRAKING_FACTOR:	0.97	// Ratio of which internal tension decreases per step (0.001..0.1)
+float	FEEDBACK_FACTOR:	0.03	// Probability of feedback per minimal 3 letters step
+float	MAXPROSOCIAL:	0.0	// Maximal value of prosocial meta-variable
+float	EMBOLDENING_FACTOR:	1.0E-5	//Long-term emboldening consists in lowering the threshold by a very small fraction at the beginning of the sentence
+int  	maxSteps:	5400	// Maximal number of steps. ( 10800 = 1h of talking if LETTERS_p_STEP==3 )
+int  	STAT_WINDOW:	900	// How many steps before is taken for calculating reward. (900 = 5 min. if LETTERS_p_STEP==3)
+int  	VERBOSITY:	0	// Level of textual verbosity from the model
+int  	TEXTLOG:	13	// Enabling log files (now particular bits decide about formats)
+int  	SOFTRESET:	0	// Forces partial resets. Currently, leaving the individuality of the agents
+
+       float 	TENSION_GROW_SCALER:	1.0	// The scaling must be calculated in the model init.
+const  float 	MAX_TENSION_GROW_IN_TIME:	0.5	// internalT*=1+random(MAX_TENSION_GROW_IN_TIME); 
+const  float 	TALK_THRES_MAX:	0.9	// Speaking barrier: threshold=random(myWorld.params.TALK_THRES_MIN,TALK_THRES_MAX);
+const  float 	ADDING_PROBABILITY:	0.03	// Sometimes he also wants to add something and the probability of it is important.
+const  float 	FEEDBACK_FACTOR_MIN:	0.01	// The probability of feedback is a feature of the agent and is between MINIMUM... and FEEDBACK_FACTOR 
+const  float 	SKIPPING_DIVIDER:	2.0	// this.threshold/SKIPPING_DIVIDER decide when agent skip to finish planed sentences. 
+const  float 	PROP_FIN_MIN:	0.05	//
+       float 	PROP_FIN_MAX: 	0.15	// Activation by the number of scheduled text in the queue. propFin=random(PROP_FIN_MIN,PROP_FIN_MAX) 
+       float 	PROSOCIAL_MIN:	0.0	// The `proSocial` agent field is randomized within a range `(PROSOCIAL_MIN..ModelParameters::PROSOCIAL_MAX>` 
+       float 	PROSOCIAL_DEFAULT:	0.25	// but if `ModelParameters::PROSOCIAL_MAX` is `0.0` then it is set to `PROSOCIAL_DEFAULT` 
+const  float 	IF_MENTION_MIN:	0.33	//
+const  float 	IF_MENTION_MAX:	0.66	// ifMentioned=random(IF_MENTION_MIN,IF_MENTION_MAX);
+const  float 	MY_INTEREST_PROB_PER_LETTER:	0.009	// It controls the agent's interest in a statement in which HIS NAME IS NOT INCLUDED.
+
+       float 	TENSION_GROW_SCALER:	1.0	// The scaling must be calculated in the model init.
+const  float 	MAX_TENSION_GROW_IN_TIME:	0.5	// internalT*=1+random(MAX_TENSION_GROW_IN_TIME); 
+const  float 	TALK_THRES_MAX:	0.9	// Speaking barrier: threshold=random(myWorld.params.TALK_THRES_MIN,TALK_THRES_MAX);
+const  float 	ADDING_PROBABILITY:	0.03	// Sometimes he also wants to add something and the probability of it is important.
+const  float 	FEEDBACK_FACTOR_MIN:	0.01	// The probability of feedback is a feature of the agent and is between MINIMUM... and FEEDBACK_FACTOR 
+const  float 	SKIPPING_DIVIDER:	2.0	// this.threshold/SKIPPING_DIVIDER decide when agent skip to finish planed sentences. 
+const  float 	PROP_FIN_MIN:	0.05	//
+       float 	PROP_FIN_MAX: 	0.15	// Activation by the number of scheduled text in the queue. propFin=random(PROP_FIN_MIN,PROP_FIN_MAX) 
+       float 	PROSOCIAL_MIN:	0.0	// The `proSocial` agent field is randomized within a range `(PROSOCIAL_MIN..ModelParameters::PROSOCIAL_MAX>` 
+       float 	PROSOCIAL_DEFAULT:	0.25	// but if `ModelParameters::PROSOCIAL_MAX` is `0.0` then it is set to `PROSOCIAL_DEFAULT` 
+const  float 	IF_MENTION_MIN:	0.33	//
+const  float 	IF_MENTION_MAX:	0.66	// ifMentioned=random(IF_MENTION_MIN,IF_MENTION_MAX);
+const  float 	MY_INTEREST_PROB_PER_LETTER:	0.009	// It controls the agent's interest in a statement in which HIS NAME IS NOT INCLUDED.
+
+       float 	TENSION_GROW_SCALER:	1.0	// The scaling must be calculated in the model init.
+const  float 	MAX_TENSION_GROW_IN_TIME:	0.5	// internalT*=1+random(MAX_TENSION_GROW_IN_TIME); 
+const  float 	TALK_THRES_MAX:	0.9	// Speaking barrier: threshold=random(myWorld.params.TALK_THRES_MIN,TALK_THRES_MAX);
+const  float 	ADDING_PROBABILITY:	0.03	// Sometimes he also wants to add something and the probability of it is important.
+const  float 	FEEDBACK_FACTOR_MIN:	0.01	// The probability of feedback is a feature of the agent and is between MINIMUM... and FEEDBACK_FACTOR 
+const  float 	SKIPPING_DIVIDER:	2.0	// this.threshold/SKIPPING_DIVIDER decide when agent skip to finish planed sentences. 
+const  float 	PROP_FIN_MIN:	0.05	//
+       float 	PROP_FIN_MAX: 	0.15	// Activation by the number of scheduled text in the queue. propFin=random(PROP_FIN_MIN,PROP_FIN_MAX) 
+       float 	PROSOCIAL_MIN:	0.0	// The `proSocial` agent field is randomized within a range `(PROSOCIAL_MIN..ModelParameters::PROSOCIAL_MAX>` 
+       float 	PROSOCIAL_DEFAULT:	0.25	// but if `ModelParameters::PROSOCIAL_MAX` is `0.0` then it is set to `PROSOCIAL_DEFAULT` 
+const  float 	IF_MENTION_MIN:	0.33	//
+const  float 	IF_MENTION_MAX:	0.66	// ifMentioned=random(IF_MENTION_MIN,IF_MENTION_MAX);
+const  float 	MY_INTEREST_PROB_PER_LETTER:	0.009	// It controls the agent's interest in a statement in which HIS NAME IS NOT INCLUDED.
+
+       float 	TENSION_GROW_SCALER:	1.0	// The scaling must be calculated in the model init.
+const  float 	MAX_TENSION_GROW_IN_TIME:	0.5	// internalT*=1+random(MAX_TENSION_GROW_IN_TIME); 
+const  float 	TALK_THRES_MAX:	0.9	// Speaking barrier: threshold=random(myWorld.params.TALK_THRES_MIN,TALK_THRES_MAX);
+const  float 	ADDING_PROBABILITY:	0.03	// Sometimes he also wants to add something and the probability of it is important.
+const  float 	FEEDBACK_FACTOR_MIN:	0.01	// The probability of feedback is a feature of the agent and is between MINIMUM... and FEEDBACK_FACTOR 
+const  float 	SKIPPING_DIVIDER:	2.0	// this.threshold/SKIPPING_DIVIDER decide when agent skip to finish planed sentences. 
+const  float 	PROP_FIN_MIN:	0.05	//
+       float 	PROP_FIN_MAX: 	0.15	// Activation by the number of scheduled text in the queue. propFin=random(PROP_FIN_MIN,PROP_FIN_MAX) 
+       float 	PROSOCIAL_MIN:	0.0	// The `proSocial` agent field is randomized within a range `(PROSOCIAL_MIN..ModelParameters::PROSOCIAL_MAX>` 
+       float 	PROSOCIAL_DEFAULT:	0.25	// but if `ModelParameters::PROSOCIAL_MAX` is `0.0` then it is set to `PROSOCIAL_DEFAULT` 
+const  float 	IF_MENTION_MIN:	0.33	//
+const  float 	IF_MENTION_MAX:	0.66	// ifMentioned=random(IF_MENTION_MIN,IF_MENTION_MAX);
+const  float 	MY_INTEREST_PROB_PER_LETTER:	0.009	// It controls the agent's interest in a statement in which HIS NAME IS NOT INCLUDED.
+
+       float 	TENSION_GROW_SCALER:	1.0	// The scaling must be calculated in the model init.
+const  float 	MAX_TENSION_GROW_IN_TIME:	0.5	// internalT*=1+random(MAX_TENSION_GROW_IN_TIME); 
+const  float 	TALK_THRES_MAX:	0.9	// Speaking barrier: threshold=random(myWorld.params.TALK_THRES_MIN,TALK_THRES_MAX);
+const  float 	ADDING_PROBABILITY:	0.03	// Sometimes he also wants to add something and the probability of it is important.
+const  float 	FEEDBACK_FACTOR_MIN:	0.01	// The probability of feedback is a feature of the agent and is between MINIMUM... and FEEDBACK_FACTOR 
+const  float 	SKIPPING_DIVIDER:	2.0	// this.threshold/SKIPPING_DIVIDER decide when agent skip to finish planed sentences. 
+const  float 	PROP_FIN_MIN:	0.05	//
+       float 	PROP_FIN_MAX: 	0.15	// Activation by the number of scheduled text in the queue. propFin=random(PROP_FIN_MIN,PROP_FIN_MAX) 
+       float 	PROSOCIAL_MIN:	0.0	// The `proSocial` agent field is randomized within a range `(PROSOCIAL_MIN..ModelParameters::PROSOCIAL_MAX>` 
+       float 	PROSOCIAL_DEFAULT:	0.25	// but if `ModelParameters::PROSOCIAL_MAX` is `0.0` then it is set to `PROSOCIAL_DEFAULT` 
+const  float 	IF_MENTION_MIN:	0.33	//
+const  float 	IF_MENTION_MAX:	0.66	// ifMentioned=random(IF_MENTION_MIN,IF_MENTION_MAX);
+const  float 	MY_INTEREST_PROB_PER_LETTER:	0.009	// It controls the agent's interest in a statement in which HIS NAME IS NOT INCLUDED.
+
+       float 	TENSION_GROW_SCALER:	1.0	// The scaling must be calculated in the model init.
+const  float 	MAX_TENSION_GROW_IN_TIME:	0.5	// internalT*=1+random(MAX_TENSION_GROW_IN_TIME); 
+const  float 	TALK_THRES_MAX:	0.9	// Speaking barrier: threshold=random(myWorld.params.TALK_THRES_MIN,TALK_THRES_MAX);
+const  float 	ADDING_PROBABILITY:	0.03	// Sometimes he also wants to add something and the probability of it is important.
+const  float 	FEEDBACK_FACTOR_MIN:	0.01	// The probability of feedback is a feature of the agent and is between MINIMUM... and FEEDBACK_FACTOR 
+const  float 	SKIPPING_DIVIDER:	2.0	// this.threshold/SKIPPING_DIVIDER decide when agent skip to finish planed sentences. 
+const  float 	PROP_FIN_MIN:	0.05	//
+       float 	PROP_FIN_MAX: 	0.15	// Activation by the number of scheduled text in the queue. propFin=random(PROP_FIN_MIN,PROP_FIN_MAX) 
+       float 	PROSOCIAL_MIN:	0.0	// The `proSocial` agent field is randomized within a range `(PROSOCIAL_MIN..ModelParameters::PROSOCIAL_MAX>` 
+       float 	PROSOCIAL_DEFAULT:	0.25	// but if `ModelParameters::PROSOCIAL_MAX` is `0.0` then it is set to `PROSOCIAL_DEFAULT` 
+const  float 	IF_MENTION_MIN:	0.33	//
+const  float 	IF_MENTION_MAX:	0.66	// ifMentioned=random(IF_MENTION_MIN,IF_MENTION_MAX);
+const  float 	MY_INTEREST_PROB_PER_LETTER:	0.009	// It controls the agent's interest in a statement in which HIS NAME IS NOT INCLUDED.
+
+       float 	TENSION_GROW_SCALER:	1.0	// The scaling must be calculated in the model init.
+const  float 	MAX_TENSION_GROW_IN_TIME:	0.5	// internalT*=1+random(MAX_TENSION_GROW_IN_TIME); 
+const  float 	TALK_THRES_MAX:	0.9	// Speaking barrier: threshold=random(myWorld.params.TALK_THRES_MIN,TALK_THRES_MAX);
+const  float 	ADDING_PROBABILITY:	0.03	// Sometimes he also wants to add something and the probability of it is important.
+const  float 	FEEDBACK_FACTOR_MIN:	0.01	// The probability of feedback is a feature of the agent and is between MINIMUM... and FEEDBACK_FACTOR 
+const  float 	SKIPPING_DIVIDER:	2.0	// this.threshold/SKIPPING_DIVIDER decide when agent skip to finish planed sentences. 
+const  float 	PROP_FIN_MIN:	0.05	//
+       float 	PROP_FIN_MAX: 	0.15	// Activation by the number of scheduled text in the queue. propFin=random(PROP_FIN_MIN,PROP_FIN_MAX) 
+       float 	PROSOCIAL_MIN:	0.0	// The `proSocial` agent field is randomized within a range `(PROSOCIAL_MIN..ModelParameters::PROSOCIAL_MAX>` 
+       float 	PROSOCIAL_DEFAULT:	0.25	// but if `ModelParameters::PROSOCIAL_MAX` is `0.0` then it is set to `PROSOCIAL_DEFAULT` 
+const  float 	IF_MENTION_MIN:	0.33	//
+const  float 	IF_MENTION_MAX:	0.66	// ifMentioned=random(IF_MENTION_MIN,IF_MENTION_MAX);
+const  float 	MY_INTEREST_PROB_PER_LETTER:	0.009	// It controls the agent's interest in a statement in which HIS NAME IS NOT INCLUDED.
+
+       float 	TENSION_GROW_SCALER:	1.0	// The scaling must be calculated in the model init.
+const  float 	MAX_TENSION_GROW_IN_TIME:	0.5	// internalT*=1+random(MAX_TENSION_GROW_IN_TIME); 
+const  float 	TALK_THRES_MAX:	0.9	// Speaking barrier: threshold=random(myWorld.params.TALK_THRES_MIN,TALK_THRES_MAX);
+const  float 	ADDING_PROBABILITY:	0.03	// Sometimes he also wants to add something and the probability of it is important.
+const  float 	FEEDBACK_FACTOR_MIN:	0.01	// The probability of feedback is a feature of the agent and is between MINIMUM... and FEEDBACK_FACTOR 
+const  float 	SKIPPING_DIVIDER:	2.0	// this.threshold/SKIPPING_DIVIDER decide when agent skip to finish planed sentences. 
+const  float 	PROP_FIN_MIN:	0.05	//
+       float 	PROP_FIN_MAX: 	0.15	// Activation by the number of scheduled text in the queue. propFin=random(PROP_FIN_MIN,PROP_FIN_MAX) 
+       float 	PROSOCIAL_MIN:	0.0	// The `proSocial` agent field is randomized within a range `(PROSOCIAL_MIN..ModelParameters::PROSOCIAL_MAX>` 
+       float 	PROSOCIAL_DEFAULT:	0.25	// but if `ModelParameters::PROSOCIAL_MAX` is `0.0` then it is set to `PROSOCIAL_DEFAULT` 
+const  float 	IF_MENTION_MIN:	0.33	//
+const  float 	IF_MENTION_MAX:	0.66	// ifMentioned=random(IF_MENTION_MIN,IF_MENTION_MAX);
+const  float 	MY_INTEREST_PROB_PER_LETTER:	0.009	// It controls the agent's interest in a statement in which HIS NAME IS NOT INCLUDED.
+
+       float 	TENSION_GROW_SCALER:	1.0	// The scaling must be calculated in the model init.
+const  float 	MAX_TENSION_GROW_IN_TIME:	0.5	// internalT*=1+random(MAX_TENSION_GROW_IN_TIME); 
+const  float 	TALK_THRES_MAX:	0.9	// Speaking barrier: threshold=random(myWorld.params.TALK_THRES_MIN,TALK_THRES_MAX);
+const  float 	ADDING_PROBABILITY:	0.03	// Sometimes he also wants to add something and the probability of it is important.
+const  float 	FEEDBACK_FACTOR_MIN:	0.01	// The probability of feedback is a feature of the agent and is between MINIMUM... and FEEDBACK_FACTOR 
+const  float 	SKIPPING_DIVIDER:	2.0	// this.threshold/SKIPPING_DIVIDER decide when agent skip to finish planed sentences. 
+const  float 	PROP_FIN_MIN:	0.05	//
+       float 	PROP_FIN_MAX: 	0.15	// Activation by the number of scheduled text in the queue. propFin=random(PROP_FIN_MIN,PROP_FIN_MAX) 
+       float 	PROSOCIAL_MIN:	0.0	// The `proSocial` agent field is randomized within a range `(PROSOCIAL_MIN..ModelParameters::PROSOCIAL_MAX>` 
+       float 	PROSOCIAL_DEFAULT:	0.25	// but if `ModelParameters::PROSOCIAL_MAX` is `0.0` then it is set to `PROSOCIAL_DEFAULT` 
+const  float 	IF_MENTION_MIN:	0.33	//
+const  float 	IF_MENTION_MAX:	0.66	// ifMentioned=random(IF_MENTION_MIN,IF_MENTION_MAX);
+const  float 	MY_INTEREST_PROB_PER_LETTER:	0.009	// It controls the agent's interest in a statement in which HIS NAME IS NOT INCLUDED.
+
+       float 	TENSION_GROW_SCALER:	1.0	// The scaling must be calculated in the model init.
+const  float 	MAX_TENSION_GROW_IN_TIME:	0.5	// internalT*=1+random(MAX_TENSION_GROW_IN_TIME); 
+const  float 	TALK_THRES_MAX:	0.9	// Speaking barrier: threshold=random(myWorld.params.TALK_THRES_MIN,TALK_THRES_MAX);
+const  float 	ADDING_PROBABILITY:	0.03	// Sometimes he also wants to add something and the probability of it is important.
+const  float 	FEEDBACK_FACTOR_MIN:	0.01	// The probability of feedback is a feature of the agent and is between MINIMUM... and FEEDBACK_FACTOR 
+const  float 	SKIPPING_DIVIDER:	2.0	// this.threshold/SKIPPING_DIVIDER decide when agent skip to finish planed sentences. 
+const  float 	PROP_FIN_MIN:	0.05	//
+       float 	PROP_FIN_MAX: 	0.15	// Activation by the number of scheduled text in the queue. propFin=random(PROP_FIN_MIN,PROP_FIN_MAX) 
+       float 	PROSOCIAL_MIN:	0.0	// The `proSocial` agent field is randomized within a range `(PROSOCIAL_MIN..ModelParameters::PROSOCIAL_MAX>` 
+       float 	PROSOCIAL_DEFAULT:	0.25	// but if `ModelParameters::PROSOCIAL_MAX` is `0.0` then it is set to `PROSOCIAL_DEFAULT` 
+const  float 	IF_MENTION_MIN:	0.33	//
+const  float 	IF_MENTION_MAX:	0.66	// ifMentioned=random(IF_MENTION_MIN,IF_MENTION_MAX);
+const  float 	MY_INTEREST_PROB_PER_LETTER:	0.009	// It controls the agent's interest in a statement in which HIS NAME IS NOT INCLUDED.
+
+       float 	TENSION_GROW_SCALER:	1.0	// The scaling must be calculated in the model init.
+const  float 	MAX_TENSION_GROW_IN_TIME:	0.5	// internalT*=1+random(MAX_TENSION_GROW_IN_TIME); 
+const  float 	TALK_THRES_MAX:	0.9	// Speaking barrier: threshold=random(myWorld.params.TALK_THRES_MIN,TALK_THRES_MAX);
+const  float 	ADDING_PROBABILITY:	0.03	// Sometimes he also wants to add something and the probability of it is important.
+const  float 	FEEDBACK_FACTOR_MIN:	0.01	// The probability of feedback is a feature of the agent and is between MINIMUM... and FEEDBACK_FACTOR 
+const  float 	SKIPPING_DIVIDER:	2.0	// this.threshold/SKIPPING_DIVIDER decide when agent skip to finish planed sentences. 
+const  float 	PROP_FIN_MIN:	0.05	//
+       float 	PROP_FIN_MAX: 	0.15	// Activation by the number of scheduled text in the queue. propFin=random(PROP_FIN_MIN,PROP_FIN_MAX) 
+       float 	PROSOCIAL_MIN:	0.0	// The `proSocial` agent field is randomized within a range `(PROSOCIAL_MIN..ModelParameters::PROSOCIAL_MAX>` 
+       float 	PROSOCIAL_DEFAULT:	0.25	// but if `ModelParameters::PROSOCIAL_MAX` is `0.0` then it is set to `PROSOCIAL_DEFAULT` 
+const  float 	IF_MENTION_MIN:	0.33	//
+const  float 	IF_MENTION_MAX:	0.66	// ifMentioned=random(IF_MENTION_MIN,IF_MENTION_MAX);
+const  float 	MY_INTEREST_PROB_PER_LETTER:	0.009	// It controls the agent's interest in a statement in which HIS NAME IS NOT INCLUDED.
+
+       float 	TENSION_GROW_SCALER:	1.0	// The scaling must be calculated in the model init.
+const  float 	MAX_TENSION_GROW_IN_TIME:	0.5	// internalT*=1+random(MAX_TENSION_GROW_IN_TIME); 
+const  float 	TALK_THRES_MAX:	0.9	// Speaking barrier: threshold=random(myWorld.params.TALK_THRES_MIN,TALK_THRES_MAX);
+const  float 	ADDING_PROBABILITY:	0.03	// Sometimes he also wants to add something and the probability of it is important.
+const  float 	FEEDBACK_FACTOR_MIN:	0.01	// The probability of feedback is a feature of the agent and is between MINIMUM... and FEEDBACK_FACTOR 
+const  float 	SKIPPING_DIVIDER:	2.0	// this.threshold/SKIPPING_DIVIDER decide when agent skip to finish planed sentences. 
+const  float 	PROP_FIN_MIN:	0.05	//
+       float 	PROP_FIN_MAX: 	0.15	// Activation by the number of scheduled text in the queue. propFin=random(PROP_FIN_MIN,PROP_FIN_MAX) 
+       float 	PROSOCIAL_MIN:	0.0	// The `proSocial` agent field is randomized within a range `(PROSOCIAL_MIN..ModelParameters::PROSOCIAL_MAX>` 
+       float 	PROSOCIAL_DEFAULT:	0.25	// but if `ModelParameters::PROSOCIAL_MAX` is `0.0` then it is set to `PROSOCIAL_DEFAULT` 
+const  float 	IF_MENTION_MIN:	0.33	//
+const  float 	IF_MENTION_MAX:	0.66	// ifMentioned=random(IF_MENTION_MIN,IF_MENTION_MAX);
+const  float 	MY_INTEREST_PROB_PER_LETTER:	0.009	// It controls the agent's interest in a statement in which HIS NAME IS NOT INCLUDED.
+
+       float 	TENSION_GROW_SCALER:	1.0	// The scaling must be calculated in the model init.
+const  float 	MAX_TENSION_GROW_IN_TIME:	0.5	// internalT*=1+random(MAX_TENSION_GROW_IN_TIME); 
+const  float 	TALK_THRES_MAX:	0.9	// Speaking barrier: threshold=random(myWorld.params.TALK_THRES_MIN,TALK_THRES_MAX);
+const  float 	ADDING_PROBABILITY:	0.03	// Sometimes he also wants to add something and the probability of it is important.
+const  float 	FEEDBACK_FACTOR_MIN:	0.01	// The probability of feedback is a feature of the agent and is between MINIMUM... and FEEDBACK_FACTOR 
+const  float 	SKIPPING_DIVIDER:	2.0	// this.threshold/SKIPPING_DIVIDER decide when agent skip to finish planed sentences. 
+const  float 	PROP_FIN_MIN:	0.05	//
+       float 	PROP_FIN_MAX: 	0.15	// Activation by the number of scheduled text in the queue. propFin=random(PROP_FIN_MIN,PROP_FIN_MAX) 
+       float 	PROSOCIAL_MIN:	0.0	// The `proSocial` agent field is randomized within a range `(PROSOCIAL_MIN..ModelParameters::PROSOCIAL_MAX>` 
+       float 	PROSOCIAL_DEFAULT:	0.25	// but if `ModelParameters::PROSOCIAL_MAX` is `0.0` then it is set to `PROSOCIAL_DEFAULT` 
+const  float 	IF_MENTION_MIN:	0.33	//
+const  float 	IF_MENTION_MAX:	0.66	// ifMentioned=random(IF_MENTION_MIN,IF_MENTION_MAX);
+const  float 	MY_INTEREST_PROB_PER_LETTER:	0.009	// It controls the agent's interest in a statement in which HIS NAME IS NOT INCLUDED.
+
+       float 	TENSION_GROW_SCALER:	1.0	// The scaling must be calculated in the model init.
+const  float 	MAX_TENSION_GROW_IN_TIME:	0.5	// internalT*=1+random(MAX_TENSION_GROW_IN_TIME); 
+const  float 	TALK_THRES_MAX:	0.9	// Speaking barrier: threshold=random(myWorld.params.TALK_THRES_MIN,TALK_THRES_MAX);
+const  float 	ADDING_PROBABILITY:	0.03	// Sometimes he also wants to add something and the probability of it is important.
+const  float 	FEEDBACK_FACTOR_MIN:	0.01	// The probability of feedback is a feature of the agent and is between MINIMUM... and FEEDBACK_FACTOR 
+const  float 	SKIPPING_DIVIDER:	2.0	// this.threshold/SKIPPING_DIVIDER decide when agent skip to finish planed sentences. 
+const  float 	PROP_FIN_MIN:	0.05	//
+       float 	PROP_FIN_MAX: 	0.15	// Activation by the number of scheduled text in the queue. propFin=random(PROP_FIN_MIN,PROP_FIN_MAX) 
+       float 	PROSOCIAL_MIN:	0.0	// The `proSocial` agent field is randomized within a range `(PROSOCIAL_MIN..ModelParameters::PROSOCIAL_MAX>` 
+       float 	PROSOCIAL_DEFAULT:	0.25	// but if `ModelParameters::PROSOCIAL_MAX` is `0.0` then it is set to `PROSOCIAL_DEFAULT` 
+const  float 	IF_MENTION_MIN:	0.33	//
+const  float 	IF_MENTION_MAX:	0.66	// ifMentioned=random(IF_MENTION_MIN,IF_MENTION_MAX);
+const  float 	MY_INTEREST_PROB_PER_LETTER:	0.009	// It controls the agent's interest in a statement in which HIS NAME IS NOT INCLUDED.
+
+       float 	TENSION_GROW_SCALER:	1.0	// The scaling must be calculated in the model init.
+const  float 	MAX_TENSION_GROW_IN_TIME:	0.5	// internalT*=1+random(MAX_TENSION_GROW_IN_TIME); 
+const  float 	TALK_THRES_MAX:	0.9	// Speaking barrier: threshold=random(myWorld.params.TALK_THRES_MIN,TALK_THRES_MAX);
+const  float 	ADDING_PROBABILITY:	0.03	// Sometimes he also wants to add something and the probability of it is important.
+const  float 	FEEDBACK_FACTOR_MIN:	0.01	// The probability of feedback is a feature of the agent and is between MINIMUM... and FEEDBACK_FACTOR 
+const  float 	SKIPPING_DIVIDER:	2.0	// this.threshold/SKIPPING_DIVIDER decide when agent skip to finish planed sentences. 
+const  float 	PROP_FIN_MIN:	0.05	//
+       float 	PROP_FIN_MAX: 	0.15	// Activation by the number of scheduled text in the queue. propFin=random(PROP_FIN_MIN,PROP_FIN_MAX) 
+       float 	PROSOCIAL_MIN:	0.0	// The `proSocial` agent field is randomized within a range `(PROSOCIAL_MIN..ModelParameters::PROSOCIAL_MAX>` 
+       float 	PROSOCIAL_DEFAULT:	0.25	// but if `ModelParameters::PROSOCIAL_MAX` is `0.0` then it is set to `PROSOCIAL_DEFAULT` 
+const  float 	IF_MENTION_MIN:	0.33	//
+const  float 	IF_MENTION_MAX:	0.66	// ifMentioned=random(IF_MENTION_MIN,IF_MENTION_MAX);
+const  float 	MY_INTEREST_PROB_PER_LETTER:	0.009	// It controls the agent's interest in a statement in which HIS NAME IS NOT INCLUDED.
+
+       float 	TENSION_GROW_SCALER:	1.0	// The scaling must be calculated in the model init.
+const  float 	MAX_TENSION_GROW_IN_TIME:	0.5	// internalT*=1+random(MAX_TENSION_GROW_IN_TIME); 
+const  float 	TALK_THRES_MAX:	0.9	// Speaking barrier: threshold=random(myWorld.params.TALK_THRES_MIN,TALK_THRES_MAX);
+const  float 	ADDING_PROBABILITY:	0.03	// Sometimes he also wants to add something and the probability of it is important.
+const  float 	FEEDBACK_FACTOR_MIN:	0.01	// The probability of feedback is a feature of the agent and is between MINIMUM... and FEEDBACK_FACTOR 
+const  float 	SKIPPING_DIVIDER:	2.0	// this.threshold/SKIPPING_DIVIDER decide when agent skip to finish planed sentences. 
+const  float 	PROP_FIN_MIN:	0.05	//
+       float 	PROP_FIN_MAX: 	0.15	// Activation by the number of scheduled text in the queue. propFin=random(PROP_FIN_MIN,PROP_FIN_MAX) 
+       float 	PROSOCIAL_MIN:	0.0	// The `proSocial` agent field is randomized within a range `(PROSOCIAL_MIN..ModelParameters::PROSOCIAL_MAX>` 
+       float 	PROSOCIAL_DEFAULT:	0.25	// but if `ModelParameters::PROSOCIAL_MAX` is `0.0` then it is set to `PROSOCIAL_DEFAULT` 
+const  float 	IF_MENTION_MIN:	0.33	//
+const  float 	IF_MENTION_MAX:	0.66	// ifMentioned=random(IF_MENTION_MIN,IF_MENTION_MAX);
+const  float 	MY_INTEREST_PROB_PER_LETTER:	0.009	// It controls the agent's interest in a statement in which HIS NAME IS NOT INCLUDED.
+
+       float 	TENSION_GROW_SCALER:	1.0	// The scaling must be calculated in the model init.
+const  float 	MAX_TENSION_GROW_IN_TIME:	0.5	// internalT*=1+random(MAX_TENSION_GROW_IN_TIME); 
+const  float 	TALK_THRES_MAX:	0.9	// Speaking barrier: threshold=random(myWorld.params.TALK_THRES_MIN,TALK_THRES_MAX);
+const  float 	ADDING_PROBABILITY:	0.03	// Sometimes he also wants to add something and the probability of it is important.
+const  float 	FEEDBACK_FACTOR_MIN:	0.01	// The probability of feedback is a feature of the agent and is between MINIMUM... and FEEDBACK_FACTOR 
+const  float 	SKIPPING_DIVIDER:	2.0	// this.threshold/SKIPPING_DIVIDER decide when agent skip to finish planed sentences. 
+const  float 	PROP_FIN_MIN:	0.05	//
+       float 	PROP_FIN_MAX: 	0.15	// Activation by the number of scheduled text in the queue. propFin=random(PROP_FIN_MIN,PROP_FIN_MAX) 
+       float 	PROSOCIAL_MIN:	0.0	// The `proSocial` agent field is randomized within a range `(PROSOCIAL_MIN..ModelParameters::PROSOCIAL_MAX>` 
+       float 	PROSOCIAL_DEFAULT:	0.25	// but if `ModelParameters::PROSOCIAL_MAX` is `0.0` then it is set to `PROSOCIAL_DEFAULT` 
+const  float 	IF_MENTION_MIN:	0.33	//
+const  float 	IF_MENTION_MAX:	0.66	// ifMentioned=random(IF_MENTION_MIN,IF_MENTION_MAX);
+const  float 	MY_INTEREST_PROB_PER_LETTER:	0.009	// It controls the agent's interest in a statement in which HIS NAME IS NOT INCLUDED.
+
+       float 	TENSION_GROW_SCALER:	1.0	// The scaling must be calculated in the model init.
+const  float 	MAX_TENSION_GROW_IN_TIME:	0.5	// internalT*=1+random(MAX_TENSION_GROW_IN_TIME); 
+const  float 	TALK_THRES_MAX:	0.9	// Speaking barrier: threshold=random(myWorld.params.TALK_THRES_MIN,TALK_THRES_MAX);
+const  float 	ADDING_PROBABILITY:	0.03	// Sometimes he also wants to add something and the probability of it is important.
+const  float 	FEEDBACK_FACTOR_MIN:	0.01	// The probability of feedback is a feature of the agent and is between MINIMUM... and FEEDBACK_FACTOR 
+const  float 	SKIPPING_DIVIDER:	2.0	// this.threshold/SKIPPING_DIVIDER decide when agent skip to finish planed sentences. 
+const  float 	PROP_FIN_MIN:	0.05	//
+       float 	PROP_FIN_MAX: 	0.15	// Activation by the number of scheduled text in the queue. propFin=random(PROP_FIN_MIN,PROP_FIN_MAX) 
+       float 	PROSOCIAL_MIN:	0.0	// The `proSocial` agent field is randomized within a range `(PROSOCIAL_MIN..ModelParameters::PROSOCIAL_MAX>` 
+       float 	PROSOCIAL_DEFAULT:	0.25	// but if `ModelParameters::PROSOCIAL_MAX` is `0.0` then it is set to `PROSOCIAL_DEFAULT` 
+const  float 	IF_MENTION_MIN:	0.33	//
+const  float 	IF_MENTION_MAX:	0.66	// ifMentioned=random(IF_MENTION_MIN,IF_MENTION_MAX);
+const  float 	MY_INTEREST_PROB_PER_LETTER:	0.009	// It controls the agent's interest in a statement in which HIS NAME IS NOT INCLUDED.
+
+       float 	TENSION_GROW_SCALER:	1.0	// The scaling must be calculated in the model init.
+const  float 	MAX_TENSION_GROW_IN_TIME:	0.5	// internalT*=1+random(MAX_TENSION_GROW_IN_TIME); 
+const  float 	TALK_THRES_MAX:	0.9	// Speaking barrier: threshold=random(myWorld.params.TALK_THRES_MIN,TALK_THRES_MAX);
+const  float 	ADDING_PROBABILITY:	0.03	// Sometimes he also wants to add something and the probability of it is important.
+const  float 	FEEDBACK_FACTOR_MIN:	0.01	// The probability of feedback is a feature of the agent and is between MINIMUM... and FEEDBACK_FACTOR 
+const  float 	SKIPPING_DIVIDER:	2.0	// this.threshold/SKIPPING_DIVIDER decide when agent skip to finish planed sentences. 
+const  float 	PROP_FIN_MIN:	0.05	//
+       float 	PROP_FIN_MAX: 	0.15	// Activation by the number of scheduled text in the queue. propFin=random(PROP_FIN_MIN,PROP_FIN_MAX) 
+       float 	PROSOCIAL_MIN:	0.0	// The `proSocial` agent field is randomized within a range `(PROSOCIAL_MIN..ModelParameters::PROSOCIAL_MAX>` 
+       float 	PROSOCIAL_DEFAULT:	0.25	// but if `ModelParameters::PROSOCIAL_MAX` is `0.0` then it is set to `PROSOCIAL_DEFAULT` 
+const  float 	IF_MENTION_MIN:	0.33	//
+const  float 	IF_MENTION_MAX:	0.66	// ifMentioned=random(IF_MENTION_MIN,IF_MENTION_MAX);
+const  float 	MY_INTEREST_PROB_PER_LETTER:	0.009	// It controls the agent's interest in a statement in which HIS NAME IS NOT INCLUDED.
+
+       float 	TENSION_GROW_SCALER:	1.0	// The scaling must be calculated in the model init.
+const  float 	MAX_TENSION_GROW_IN_TIME:	0.5	// internalT*=1+random(MAX_TENSION_GROW_IN_TIME); 
+const  float 	TALK_THRES_MAX:	0.9	// Speaking barrier: threshold=random(myWorld.params.TALK_THRES_MIN,TALK_THRES_MAX);
+const  float 	ADDING_PROBABILITY:	0.03	// Sometimes he also wants to add something and the probability of it is important.
+const  float 	FEEDBACK_FACTOR_MIN:	0.01	// The probability of feedback is a feature of the agent and is between MINIMUM... and FEEDBACK_FACTOR 
+const  float 	SKIPPING_DIVIDER:	2.0	// this.threshold/SKIPPING_DIVIDER decide when agent skip to finish planed sentences. 
+const  float 	PROP_FIN_MIN:	0.05	//
+       float 	PROP_FIN_MAX: 	0.15	// Activation by the number of scheduled text in the queue. propFin=random(PROP_FIN_MIN,PROP_FIN_MAX) 
+       float 	PROSOCIAL_MIN:	0.0	// The `proSocial` agent field is randomized within a range `(PROSOCIAL_MIN..ModelParameters::PROSOCIAL_MAX>` 
+       float 	PROSOCIAL_DEFAULT:	0.25	// but if `ModelParameters::PROSOCIAL_MAX` is `0.0` then it is set to `PROSOCIAL_DEFAULT` 
+const  float 	IF_MENTION_MIN:	0.33	//
+const  float 	IF_MENTION_MAX:	0.66	// ifMentioned=random(IF_MENTION_MIN,IF_MENTION_MAX);
+const  float 	MY_INTEREST_PROB_PER_LETTER:	0.009	// It controls the agent's interest in a statement in which HIS NAME IS NOT INCLUDED.
+
+       float 	TENSION_GROW_SCALER:	1.0	// The scaling must be calculated in the model init.
+const  float 	MAX_TENSION_GROW_IN_TIME:	0.5	// internalT*=1+random(MAX_TENSION_GROW_IN_TIME); 
+const  float 	TALK_THRES_MAX:	0.9	// Speaking barrier: threshold=random(myWorld.params.TALK_THRES_MIN,TALK_THRES_MAX);
+const  float 	ADDING_PROBABILITY:	0.03	// Sometimes he also wants to add something and the probability of it is important.
+const  float 	FEEDBACK_FACTOR_MIN:	0.01	// The probability of feedback is a feature of the agent and is between MINIMUM... and FEEDBACK_FACTOR 
+const  float 	SKIPPING_DIVIDER:	2.0	// this.threshold/SKIPPING_DIVIDER decide when agent skip to finish planed sentences. 
+const  float 	PROP_FIN_MIN:	0.05	//
+       float 	PROP_FIN_MAX: 	0.15	// Activation by the number of scheduled text in the queue. propFin=random(PROP_FIN_MIN,PROP_FIN_MAX) 
+       float 	PROSOCIAL_MIN:	0.0	// The `proSocial` agent field is randomized within a range `(PROSOCIAL_MIN..ModelParameters::PROSOCIAL_MAX>` 
+       float 	PROSOCIAL_DEFAULT:	0.25	// but if `ModelParameters::PROSOCIAL_MAX` is `0.0` then it is set to `PROSOCIAL_DEFAULT` 
+const  float 	IF_MENTION_MIN:	0.33	//
+const  float 	IF_MENTION_MAX:	0.66	// ifMentioned=random(IF_MENTION_MIN,IF_MENTION_MAX);
+const  float 	MY_INTEREST_PROB_PER_LETTER:	0.009	// It controls the agent's interest in a statement in which HIS NAME IS NOT INCLUDED.
+
+       float 	TENSION_GROW_SCALER:	1.0	// The scaling must be calculated in the model init.
+const  float 	MAX_TENSION_GROW_IN_TIME:	0.5	// internalT*=1+random(MAX_TENSION_GROW_IN_TIME); 
+const  float 	TALK_THRES_MAX:	0.9	// Speaking barrier: threshold=random(myWorld.params.TALK_THRES_MIN,TALK_THRES_MAX);
+const  float 	ADDING_PROBABILITY:	0.03	// Sometimes he also wants to add something and the probability of it is important.
+const  float 	FEEDBACK_FACTOR_MIN:	0.01	// The probability of feedback is a feature of the agent and is between MINIMUM... and FEEDBACK_FACTOR 
+const  float 	SKIPPING_DIVIDER:	2.0	// this.threshold/SKIPPING_DIVIDER decide when agent skip to finish planed sentences. 
+const  float 	PROP_FIN_MIN:	0.05	//
+       float 	PROP_FIN_MAX: 	0.15	// Activation by the number of scheduled text in the queue. propFin=random(PROP_FIN_MIN,PROP_FIN_MAX) 
+       float 	PROSOCIAL_MIN:	0.0	// The `proSocial` agent field is randomized within a range `(PROSOCIAL_MIN..ModelParameters::PROSOCIAL_MAX>` 
+       float 	PROSOCIAL_DEFAULT:	0.25	// but if `ModelParameters::PROSOCIAL_MAX` is `0.0` then it is set to `PROSOCIAL_DEFAULT` 
+const  float 	IF_MENTION_MIN:	0.33	//
+const  float 	IF_MENTION_MAX:	0.66	// ifMentioned=random(IF_MENTION_MIN,IF_MENTION_MAX);
+const  float 	MY_INTEREST_PROB_PER_LETTER:	0.009	// It controls the agent's interest in a statement in which HIS NAME IS NOT INCLUDED.
+
+       float 	TENSION_GROW_SCALER:	1.0	// The scaling must be calculated in the model init.
+const  float 	MAX_TENSION_GROW_IN_TIME:	0.5	// internalT*=1+random(MAX_TENSION_GROW_IN_TIME); 
+const  float 	TALK_THRES_MAX:	0.9	// Speaking barrier: threshold=random(myWorld.params.TALK_THRES_MIN,TALK_THRES_MAX);
+const  float 	ADDING_PROBABILITY:	0.03	// Sometimes he also wants to add something and the probability of it is important.
+const  float 	FEEDBACK_FACTOR_MIN:	0.01	// The probability of feedback is a feature of the agent and is between MINIMUM... and FEEDBACK_FACTOR 
+const  float 	SKIPPING_DIVIDER:	2.0	// this.threshold/SKIPPING_DIVIDER decide when agent skip to finish planed sentences. 
+const  float 	PROP_FIN_MIN:	0.05	//
+       float 	PROP_FIN_MAX: 	0.15	// Activation by the number of scheduled text in the queue. propFin=random(PROP_FIN_MIN,PROP_FIN_MAX) 
+       float 	PROSOCIAL_MIN:	0.0	// The `proSocial` agent field is randomized within a range `(PROSOCIAL_MIN..ModelParameters::PROSOCIAL_MAX>` 
+       float 	PROSOCIAL_DEFAULT:	0.25	// but if `ModelParameters::PROSOCIAL_MAX` is `0.0` then it is set to `PROSOCIAL_DEFAULT` 
+const  float 	IF_MENTION_MIN:	0.33	//
+const  float 	IF_MENTION_MAX:	0.66	// ifMentioned=random(IF_MENTION_MIN,IF_MENTION_MAX);
+const  float 	MY_INTEREST_PROB_PER_LETTER:	0.009	// It controls the agent's interest in a statement in which HIS NAME IS NOT INCLUDED.
+
+       float 	TENSION_GROW_SCALER:	1.0	// The scaling must be calculated in the model init.
+const  float 	MAX_TENSION_GROW_IN_TIME:	0.5	// internalT*=1+random(MAX_TENSION_GROW_IN_TIME); 
+const  float 	TALK_THRES_MAX:	0.9	// Speaking barrier: threshold=random(myWorld.params.TALK_THRES_MIN,TALK_THRES_MAX);
+const  float 	ADDING_PROBABILITY:	0.03	// Sometimes he also wants to add something and the probability of it is important.
+const  float 	FEEDBACK_FACTOR_MIN:	0.01	// The probability of feedback is a feature of the agent and is between MINIMUM... and FEEDBACK_FACTOR 
+const  float 	SKIPPING_DIVIDER:	2.0	// this.threshold/SKIPPING_DIVIDER decide when agent skip to finish planed sentences. 
+const  float 	PROP_FIN_MIN:	0.05	//
+       float 	PROP_FIN_MAX: 	0.15	// Activation by the number of scheduled text in the queue. propFin=random(PROP_FIN_MIN,PROP_FIN_MAX) 
+       float 	PROSOCIAL_MIN:	0.0	// The `proSocial` agent field is randomized within a range `(PROSOCIAL_MIN..ModelParameters::PROSOCIAL_MAX>` 
+       float 	PROSOCIAL_DEFAULT:	0.25	// but if `ModelParameters::PROSOCIAL_MAX` is `0.0` then it is set to `PROSOCIAL_DEFAULT` 
+const  float 	IF_MENTION_MIN:	0.33	//
+const  float 	IF_MENTION_MAX:	0.66	// ifMentioned=random(IF_MENTION_MIN,IF_MENTION_MAX);
+const  float 	MY_INTEREST_PROB_PER_LETTER:	0.009	// It controls the agent's interest in a statement in which HIS NAME IS NOT INCLUDED.
+
+       float 	TENSION_GROW_SCALER:	1.0	// The scaling must be calculated in the model init.
+const  float 	MAX_TENSION_GROW_IN_TIME:	0.5	// internalT*=1+random(MAX_TENSION_GROW_IN_TIME); 
+const  float 	TALK_THRES_MAX:	0.9	// Speaking barrier: threshold=random(myWorld.params.TALK_THRES_MIN,TALK_THRES_MAX);
+const  float 	ADDING_PROBABILITY:	0.03	// Sometimes he also wants to add something and the probability of it is important.
+const  float 	FEEDBACK_FACTOR_MIN:	0.01	// The probability of feedback is a feature of the agent and is between MINIMUM... and FEEDBACK_FACTOR 
+const  float 	SKIPPING_DIVIDER:	2.0	// this.threshold/SKIPPING_DIVIDER decide when agent skip to finish planed sentences. 
+const  float 	PROP_FIN_MIN:	0.05	//
+       float 	PROP_FIN_MAX: 	0.15	// Activation by the number of scheduled text in the queue. propFin=random(PROP_FIN_MIN,PROP_FIN_MAX) 
+       float 	PROSOCIAL_MIN:	0.0	// The `proSocial` agent field is randomized within a range `(PROSOCIAL_MIN..ModelParameters::PROSOCIAL_MAX>` 
+       float 	PROSOCIAL_DEFAULT:	0.25	// but if `ModelParameters::PROSOCIAL_MAX` is `0.0` then it is set to `PROSOCIAL_DEFAULT` 
+const  float 	IF_MENTION_MIN:	0.33	//
+const  float 	IF_MENTION_MAX:	0.66	// ifMentioned=random(IF_MENTION_MIN,IF_MENTION_MAX);
+const  float 	MY_INTEREST_PROB_PER_LETTER:	0.009	// It controls the agent's interest in a statement in which HIS NAME IS NOT INCLUDED.
+
+       float 	TENSION_GROW_SCALER:	1.0	// The scaling must be calculated in the model init.
+const  float 	MAX_TENSION_GROW_IN_TIME:	0.5	// internalT*=1+random(MAX_TENSION_GROW_IN_TIME); 
+const  float 	TALK_THRES_MAX:	0.9	// Speaking barrier: threshold=random(myWorld.params.TALK_THRES_MIN,TALK_THRES_MAX);
+const  float 	ADDING_PROBABILITY:	0.03	// Sometimes he also wants to add something and the probability of it is important.
+const  float 	FEEDBACK_FACTOR_MIN:	0.01	// The probability of feedback is a feature of the agent and is between MINIMUM... and FEEDBACK_FACTOR 
+const  float 	SKIPPING_DIVIDER:	2.0	// this.threshold/SKIPPING_DIVIDER decide when agent skip to finish planed sentences. 
+const  float 	PROP_FIN_MIN:	0.05	//
+       float 	PROP_FIN_MAX: 	0.15	// Activation by the number of scheduled text in the queue. propFin=random(PROP_FIN_MIN,PROP_FIN_MAX) 
+       float 	PROSOCIAL_MIN:	0.0	// The `proSocial` agent field is randomized within a range `(PROSOCIAL_MIN..ModelParameters::PROSOCIAL_MAX>` 
+       float 	PROSOCIAL_DEFAULT:	0.25	// but if `ModelParameters::PROSOCIAL_MAX` is `0.0` then it is set to `PROSOCIAL_DEFAULT` 
+const  float 	IF_MENTION_MIN:	0.33	//
+const  float 	IF_MENTION_MAX:	0.66	// ifMentioned=random(IF_MENTION_MIN,IF_MENTION_MAX);
+const  float 	MY_INTEREST_PROB_PER_LETTER:	0.009	// It controls the agent's interest in a statement in which HIS NAME IS NOT INCLUDED.
+
+       float 	TENSION_GROW_SCALER:	1.0	// The scaling must be calculated in the model init.
+const  float 	MAX_TENSION_GROW_IN_TIME:	0.5	// internalT*=1+random(MAX_TENSION_GROW_IN_TIME); 
+const  float 	TALK_THRES_MAX:	0.9	// Speaking barrier: threshold=random(myWorld.params.TALK_THRES_MIN,TALK_THRES_MAX);
+const  float 	ADDING_PROBABILITY:	0.03	// Sometimes he also wants to add something and the probability of it is important.
+const  float 	FEEDBACK_FACTOR_MIN:	0.01	// The probability of feedback is a feature of the agent and is between MINIMUM... and FEEDBACK_FACTOR 
+const  float 	SKIPPING_DIVIDER:	2.0	// this.threshold/SKIPPING_DIVIDER decide when agent skip to finish planed sentences. 
+const  float 	PROP_FIN_MIN:	0.05	//
+       float 	PROP_FIN_MAX: 	0.15	// Activation by the number of scheduled text in the queue. propFin=random(PROP_FIN_MIN,PROP_FIN_MAX) 
+       float 	PROSOCIAL_MIN:	0.0	// The `proSocial` agent field is randomized within a range `(PROSOCIAL_MIN..ModelParameters::PROSOCIAL_MAX>` 
+       float 	PROSOCIAL_DEFAULT:	0.25	// but if `ModelParameters::PROSOCIAL_MAX` is `0.0` then it is set to `PROSOCIAL_DEFAULT` 
+const  float 	IF_MENTION_MIN:	0.33	//
+const  float 	IF_MENTION_MAX:	0.66	// ifMentioned=random(IF_MENTION_MIN,IF_MENTION_MAX);
+const  float 	MY_INTEREST_PROB_PER_LETTER:	0.009	// It controls the agent's interest in a statement in which HIS NAME IS NOT INCLUDED.
+
+       float 	TENSION_GROW_SCALER:	1.0	// The scaling must be calculated in the model init.
+const  float 	MAX_TENSION_GROW_IN_TIME:	0.5	// internalT*=1+random(MAX_TENSION_GROW_IN_TIME); 
+const  float 	TALK_THRES_MAX:	0.9	// Speaking barrier: threshold=random(myWorld.params.TALK_THRES_MIN,TALK_THRES_MAX);
+const  float 	ADDING_PROBABILITY:	0.03	// Sometimes he also wants to add something and the probability of it is important.
+const  float 	FEEDBACK_FACTOR_MIN:	0.01	// The probability of feedback is a feature of the agent and is between MINIMUM... and FEEDBACK_FACTOR 
+const  float 	SKIPPING_DIVIDER:	2.0	// this.threshold/SKIPPING_DIVIDER decide when agent skip to finish planed sentences. 
+const  float 	PROP_FIN_MIN:	0.05	//
+       float 	PROP_FIN_MAX: 	0.15	// Activation by the number of scheduled text in the queue. propFin=random(PROP_FIN_MIN,PROP_FIN_MAX) 
+       float 	PROSOCIAL_MIN:	0.0	// The `proSocial` agent field is randomized within a range `(PROSOCIAL_MIN..ModelParameters::PROSOCIAL_MAX>` 
+       float 	PROSOCIAL_DEFAULT:	0.25	// but if `ModelParameters::PROSOCIAL_MAX` is `0.0` then it is set to `PROSOCIAL_DEFAULT` 
+const  float 	IF_MENTION_MIN:	0.33	//
+const  float 	IF_MENTION_MAX:	0.66	// ifMentioned=random(IF_MENTION_MIN,IF_MENTION_MAX);
+const  float 	MY_INTEREST_PROB_PER_LETTER:	0.009	// It controls the agent's interest in a statement in which HIS NAME IS NOT INCLUDED.
+
+       float 	TENSION_GROW_SCALER:	1.0	// The scaling must be calculated in the model init.
+const  float 	MAX_TENSION_GROW_IN_TIME:	0.5	// internalT*=1+random(MAX_TENSION_GROW_IN_TIME); 
+const  float 	TALK_THRES_MAX:	0.9	// Speaking barrier: threshold=random(myWorld.params.TALK_THRES_MIN,TALK_THRES_MAX);
+const  float 	ADDING_PROBABILITY:	0.03	// Sometimes he also wants to add something and the probability of it is important.
+const  float 	FEEDBACK_FACTOR_MIN:	0.01	// The probability of feedback is a feature of the agent and is between MINIMUM... and FEEDBACK_FACTOR 
+const  float 	SKIPPING_DIVIDER:	2.0	// this.threshold/SKIPPING_DIVIDER decide when agent skip to finish planed sentences. 
+const  float 	PROP_FIN_MIN:	0.05	//
+       float 	PROP_FIN_MAX: 	0.15	// Activation by the number of scheduled text in the queue. propFin=random(PROP_FIN_MIN,PROP_FIN_MAX) 
+       float 	PROSOCIAL_MIN:	0.0	// The `proSocial` agent field is randomized within a range `(PROSOCIAL_MIN..ModelParameters::PROSOCIAL_MAX>` 
+       float 	PROSOCIAL_DEFAULT:	0.25	// but if `ModelParameters::PROSOCIAL_MAX` is `0.0` then it is set to `PROSOCIAL_DEFAULT` 
+const  float 	IF_MENTION_MIN:	0.33	//
+const  float 	IF_MENTION_MAX:	0.66	// ifMentioned=random(IF_MENTION_MIN,IF_MENTION_MAX);
+const  float 	MY_INTEREST_PROB_PER_LETTER:	0.009	// It controls the agent's interest in a statement in which HIS NAME IS NOT INCLUDED.
+
+       float 	TENSION_GROW_SCALER:	1.0	// The scaling must be calculated in the model init.
+const  float 	MAX_TENSION_GROW_IN_TIME:	0.5	// internalT*=1+random(MAX_TENSION_GROW_IN_TIME); 
+const  float 	TALK_THRES_MAX:	0.9	// Speaking barrier: threshold=random(myWorld.params.TALK_THRES_MIN,TALK_THRES_MAX);
+const  float 	ADDING_PROBABILITY:	0.03	// Sometimes he also wants to add something and the probability of it is important.
+const  float 	FEEDBACK_FACTOR_MIN:	0.01	// The probability of feedback is a feature of the agent and is between MINIMUM... and FEEDBACK_FACTOR 
+const  float 	SKIPPING_DIVIDER:	2.0	// this.threshold/SKIPPING_DIVIDER decide when agent skip to finish planed sentences. 
+const  float 	PROP_FIN_MIN:	0.05	//
+       float 	PROP_FIN_MAX: 	0.15	// Activation by the number of scheduled text in the queue. propFin=random(PROP_FIN_MIN,PROP_FIN_MAX) 
+       float 	PROSOCIAL_MIN:	0.0	// The `proSocial` agent field is randomized within a range `(PROSOCIAL_MIN..ModelParameters::PROSOCIAL_MAX>` 
+       float 	PROSOCIAL_DEFAULT:	0.25	// but if `ModelParameters::PROSOCIAL_MAX` is `0.0` then it is set to `PROSOCIAL_DEFAULT` 
+const  float 	IF_MENTION_MIN:	0.33	//
+const  float 	IF_MENTION_MAX:	0.66	// ifMentioned=random(IF_MENTION_MIN,IF_MENTION_MAX);
+const  float 	MY_INTEREST_PROB_PER_LETTER:	0.009	// It controls the agent's interest in a statement in which HIS NAME IS NOT INCLUDED.
+
+       float 	TENSION_GROW_SCALER:	1.0	// The scaling must be calculated in the model init.
+const  float 	MAX_TENSION_GROW_IN_TIME:	0.5	// internalT*=1+random(MAX_TENSION_GROW_IN_TIME); 
+const  float 	TALK_THRES_MAX:	0.9	// Speaking barrier: threshold=random(myWorld.params.TALK_THRES_MIN,TALK_THRES_MAX);
+const  float 	ADDING_PROBABILITY:	0.03	// Sometimes he also wants to add something and the probability of it is important.
+const  float 	FEEDBACK_FACTOR_MIN:	0.01	// The probability of feedback is a feature of the agent and is between MINIMUM... and FEEDBACK_FACTOR 
+const  float 	SKIPPING_DIVIDER:	2.0	// this.threshold/SKIPPING_DIVIDER decide when agent skip to finish planed sentences. 
+const  float 	PROP_FIN_MIN:	0.05	//
+       float 	PROP_FIN_MAX: 	0.15	// Activation by the number of scheduled text in the queue. propFin=random(PROP_FIN_MIN,PROP_FIN_MAX) 
+       float 	PROSOCIAL_MIN:	0.0	// The `proSocial` agent field is randomized within a range `(PROSOCIAL_MIN..ModelParameters::PROSOCIAL_MAX>` 
+       float 	PROSOCIAL_DEFAULT:	0.25	// but if `ModelParameters::PROSOCIAL_MAX` is `0.0` then it is set to `PROSOCIAL_DEFAULT` 
+const  float 	IF_MENTION_MIN:	0.33	//
+const  float 	IF_MENTION_MAX:	0.66	// ifMentioned=random(IF_MENTION_MIN,IF_MENTION_MAX);
+const  float 	MY_INTEREST_PROB_PER_LETTER:	0.009	// It controls the agent's interest in a statement in which HIS NAME IS NOT INCLUDED.
+
+       float 	TENSION_GROW_SCALER:	1.0	// The scaling must be calculated in the model init.
+const  float 	MAX_TENSION_GROW_IN_TIME:	0.5	// internalT*=1+random(MAX_TENSION_GROW_IN_TIME); 
+const  float 	TALK_THRES_MAX:	0.9	// Speaking barrier: threshold=random(myWorld.params.TALK_THRES_MIN,TALK_THRES_MAX);
+const  float 	ADDING_PROBABILITY:	0.03	// Sometimes he also wants to add something and the probability of it is important.
+const  float 	FEEDBACK_FACTOR_MIN:	0.01	// The probability of feedback is a feature of the agent and is between MINIMUM... and FEEDBACK_FACTOR 
+const  float 	SKIPPING_DIVIDER:	2.0	// this.threshold/SKIPPING_DIVIDER decide when agent skip to finish planed sentences. 
+const  float 	PROP_FIN_MIN:	0.05	//
+       float 	PROP_FIN_MAX: 	0.15	// Activation by the number of scheduled text in the queue. propFin=random(PROP_FIN_MIN,PROP_FIN_MAX) 
+       float 	PROSOCIAL_MIN:	0.0	// The `proSocial` agent field is randomized within a range `(PROSOCIAL_MIN..ModelParameters::PROSOCIAL_MAX>` 
+       float 	PROSOCIAL_DEFAULT:	0.25	// but if `ModelParameters::PROSOCIAL_MAX` is `0.0` then it is set to `PROSOCIAL_DEFAULT` 
+const  float 	IF_MENTION_MIN:	0.33	//
+const  float 	IF_MENTION_MAX:	0.66	// ifMentioned=random(IF_MENTION_MIN,IF_MENTION_MAX);
+const  float 	MY_INTEREST_PROB_PER_LETTER:	0.009	// It controls the agent's interest in a statement in which HIS NAME IS NOT INCLUDED.
+
+       float 	TENSION_GROW_SCALER:	1.0	// The scaling must be calculated in the model init.
+const  float 	MAX_TENSION_GROW_IN_TIME:	0.5	// internalT*=1+random(MAX_TENSION_GROW_IN_TIME); 
+const  float 	TALK_THRES_MAX:	0.9	// Speaking barrier: threshold=random(myWorld.params.TALK_THRES_MIN,TALK_THRES_MAX);
+const  float 	ADDING_PROBABILITY:	0.03	// Sometimes he also wants to add something and the probability of it is important.
+const  float 	FEEDBACK_FACTOR_MIN:	0.01	// The probability of feedback is a feature of the agent and is between MINIMUM... and FEEDBACK_FACTOR 
+const  float 	SKIPPING_DIVIDER:	2.0	// this.threshold/SKIPPING_DIVIDER decide when agent skip to finish planed sentences. 
+const  float 	PROP_FIN_MIN:	0.05	//
+       float 	PROP_FIN_MAX: 	0.15	// Activation by the number of scheduled text in the queue. propFin=random(PROP_FIN_MIN,PROP_FIN_MAX) 
+       float 	PROSOCIAL_MIN:	0.0	// The `proSocial` agent field is randomized within a range `(PROSOCIAL_MIN..ModelParameters::PROSOCIAL_MAX>` 
+       float 	PROSOCIAL_DEFAULT:	0.25	// but if `ModelParameters::PROSOCIAL_MAX` is `0.0` then it is set to `PROSOCIAL_DEFAULT` 
+const  float 	IF_MENTION_MIN:	0.33	//
+const  float 	IF_MENTION_MAX:	0.66	// ifMentioned=random(IF_MENTION_MIN,IF_MENTION_MAX);
+const  float 	MY_INTEREST_PROB_PER_LETTER:	0.009	// It controls the agent's interest in a statement in which HIS NAME IS NOT INCLUDED.
+
+       float 	TENSION_GROW_SCALER:	1.0	// The scaling must be calculated in the model init.
+const  float 	MAX_TENSION_GROW_IN_TIME:	0.5	// internalT*=1+random(MAX_TENSION_GROW_IN_TIME); 
+const  float 	TALK_THRES_MAX:	0.9	// Speaking barrier: threshold=random(myWorld.params.TALK_THRES_MIN,TALK_THRES_MAX);
+const  float 	ADDING_PROBABILITY:	0.03	// Sometimes he also wants to add something and the probability of it is important.
+const  float 	FEEDBACK_FACTOR_MIN:	0.01	// The probability of feedback is a feature of the agent and is between MINIMUM... and FEEDBACK_FACTOR 
+const  float 	SKIPPING_DIVIDER:	2.0	// this.threshold/SKIPPING_DIVIDER decide when agent skip to finish planed sentences. 
+const  float 	PROP_FIN_MIN:	0.05	//
+       float 	PROP_FIN_MAX: 	0.15	// Activation by the number of scheduled text in the queue. propFin=random(PROP_FIN_MIN,PROP_FIN_MAX) 
+       float 	PROSOCIAL_MIN:	0.0	// The `proSocial` agent field is randomized within a range `(PROSOCIAL_MIN..ModelParameters::PROSOCIAL_MAX>` 
+       float 	PROSOCIAL_DEFAULT:	0.25	// but if `ModelParameters::PROSOCIAL_MAX` is `0.0` then it is set to `PROSOCIAL_DEFAULT` 
+const  float 	IF_MENTION_MIN:	0.33	//
+const  float 	IF_MENTION_MAX:	0.66	// ifMentioned=random(IF_MENTION_MIN,IF_MENTION_MAX);
+const  float 	MY_INTEREST_PROB_PER_LETTER:	0.009	// It controls the agent's interest in a statement in which HIS NAME IS NOT INCLUDED.
+
+       float 	TENSION_GROW_SCALER:	1.0	// The scaling must be calculated in the model init.
+const  float 	MAX_TENSION_GROW_IN_TIME:	0.5	// internalT*=1+random(MAX_TENSION_GROW_IN_TIME); 
+const  float 	TALK_THRES_MAX:	0.9	// Speaking barrier: threshold=random(myWorld.params.TALK_THRES_MIN,TALK_THRES_MAX);
+const  float 	ADDING_PROBABILITY:	0.03	// Sometimes he also wants to add something and the probability of it is important.
+const  float 	FEEDBACK_FACTOR_MIN:	0.01	// The probability of feedback is a feature of the agent and is between MINIMUM... and FEEDBACK_FACTOR 
+const  float 	SKIPPING_DIVIDER:	2.0	// this.threshold/SKIPPING_DIVIDER decide when agent skip to finish planed sentences. 
+const  float 	PROP_FIN_MIN:	0.05	//
+       float 	PROP_FIN_MAX: 	0.15	// Activation by the number of scheduled text in the queue. propFin=random(PROP_FIN_MIN,PROP_FIN_MAX) 
+       float 	PROSOCIAL_MIN:	0.0	// The `proSocial` agent field is randomized within a range `(PROSOCIAL_MIN..ModelParameters::PROSOCIAL_MAX>` 
+       float 	PROSOCIAL_DEFAULT:	0.25	// but if `ModelParameters::PROSOCIAL_MAX` is `0.0` then it is set to `PROSOCIAL_DEFAULT` 
+const  float 	IF_MENTION_MIN:	0.33	//
+const  float 	IF_MENTION_MAX:	0.66	// ifMentioned=random(IF_MENTION_MIN,IF_MENTION_MAX);
+const  float 	MY_INTEREST_PROB_PER_LETTER:	0.009	// It controls the agent's interest in a statement in which HIS NAME IS NOT INCLUDED.
+
+       float 	TENSION_GROW_SCALER:	1.0	// The scaling must be calculated in the model init.
+const  float 	MAX_TENSION_GROW_IN_TIME:	0.5	// internalT*=1+random(MAX_TENSION_GROW_IN_TIME); 
+const  float 	TALK_THRES_MAX:	0.9	// Speaking barrier: threshold=random(myWorld.params.TALK_THRES_MIN,TALK_THRES_MAX);
+const  float 	ADDING_PROBABILITY:	0.03	// Sometimes he also wants to add something and the probability of it is important.
+const  float 	FEEDBACK_FACTOR_MIN:	0.01	// The probability of feedback is a feature of the agent and is between MINIMUM... and FEEDBACK_FACTOR 
+const  float 	SKIPPING_DIVIDER:	2.0	// this.threshold/SKIPPING_DIVIDER decide when agent skip to finish planed sentences. 
+const  float 	PROP_FIN_MIN:	0.05	//
+       float 	PROP_FIN_MAX: 	0.15	// Activation by the number of scheduled text in the queue. propFin=random(PROP_FIN_MIN,PROP_FIN_MAX) 
+       float 	PROSOCIAL_MIN:	0.0	// The `proSocial` agent field is randomized within a range `(PROSOCIAL_MIN..ModelParameters::PROSOCIAL_MAX>` 
+       float 	PROSOCIAL_DEFAULT:	0.25	// but if `ModelParameters::PROSOCIAL_MAX` is `0.0` then it is set to `PROSOCIAL_DEFAULT` 
+const  float 	IF_MENTION_MIN:	0.33	//
+const  float 	IF_MENTION_MAX:	0.66	// ifMentioned=random(IF_MENTION_MIN,IF_MENTION_MAX);
+const  float 	MY_INTEREST_PROB_PER_LETTER:	0.009	// It controls the agent's interest in a statement in which HIS NAME IS NOT INCLUDED.
+
+       float 	TENSION_GROW_SCALER:	1.0	// The scaling must be calculated in the model init.
+const  float 	MAX_TENSION_GROW_IN_TIME:	0.5	// internalT*=1+random(MAX_TENSION_GROW_IN_TIME); 
+const  float 	TALK_THRES_MAX:	0.9	// Speaking barrier: threshold=random(myWorld.params.TALK_THRES_MIN,TALK_THRES_MAX);
+const  float 	ADDING_PROBABILITY:	0.03	// Sometimes he also wants to add something and the probability of it is important.
+const  float 	FEEDBACK_FACTOR_MIN:	0.01	// The probability of feedback is a feature of the agent and is between MINIMUM... and FEEDBACK_FACTOR 
+const  float 	SKIPPING_DIVIDER:	2.0	// this.threshold/SKIPPING_DIVIDER decide when agent skip to finish planed sentences. 
+const  float 	PROP_FIN_MIN:	0.05	//
+       float 	PROP_FIN_MAX: 	0.15	// Activation by the number of scheduled text in the queue. propFin=random(PROP_FIN_MIN,PROP_FIN_MAX) 
+       float 	PROSOCIAL_MIN:	0.0	// The `proSocial` agent field is randomized within a range `(PROSOCIAL_MIN..ModelParameters::PROSOCIAL_MAX>` 
+       float 	PROSOCIAL_DEFAULT:	0.25	// but if `ModelParameters::PROSOCIAL_MAX` is `0.0` then it is set to `PROSOCIAL_DEFAULT` 
+const  float 	IF_MENTION_MIN:	0.33	//
+const  float 	IF_MENTION_MAX:	0.66	// ifMentioned=random(IF_MENTION_MIN,IF_MENTION_MAX);
+const  float 	MY_INTEREST_PROB_PER_LETTER:	0.009	// It controls the agent's interest in a statement in which HIS NAME IS NOT INCLUDED.
+
+       float 	TENSION_GROW_SCALER:	1.0	// The scaling must be calculated in the model init.
+const  float 	MAX_TENSION_GROW_IN_TIME:	0.5	// internalT*=1+random(MAX_TENSION_GROW_IN_TIME); 
+const  float 	TALK_THRES_MAX:	0.9	// Speaking barrier: threshold=random(myWorld.params.TALK_THRES_MIN,TALK_THRES_MAX);
+const  float 	ADDING_PROBABILITY:	0.03	// Sometimes he also wants to add something and the probability of it is important.
+const  float 	FEEDBACK_FACTOR_MIN:	0.01	// The probability of feedback is a feature of the agent and is between MINIMUM... and FEEDBACK_FACTOR 
+const  float 	SKIPPING_DIVIDER:	2.0	// this.threshold/SKIPPING_DIVIDER decide when agent skip to finish planed sentences. 
+const  float 	PROP_FIN_MIN:	0.05	//
+       float 	PROP_FIN_MAX: 	0.15	// Activation by the number of scheduled text in the queue. propFin=random(PROP_FIN_MIN,PROP_FIN_MAX) 
+       float 	PROSOCIAL_MIN:	0.0	// The `proSocial` agent field is randomized within a range `(PROSOCIAL_MIN..ModelParameters::PROSOCIAL_MAX>` 
+       float 	PROSOCIAL_DEFAULT:	0.25	// but if `ModelParameters::PROSOCIAL_MAX` is `0.0` then it is set to `PROSOCIAL_DEFAULT` 
+const  float 	IF_MENTION_MIN:	0.33	//
+const  float 	IF_MENTION_MAX:	0.66	// ifMentioned=random(IF_MENTION_MIN,IF_MENTION_MAX);
+const  float 	MY_INTEREST_PROB_PER_LETTER:	0.009	// It controls the agent's interest in a statement in which HIS NAME IS NOT INCLUDED.
+
+       float 	TENSION_GROW_SCALER:	1.0	// The scaling must be calculated in the model init.
+const  float 	MAX_TENSION_GROW_IN_TIME:	0.5	// internalT*=1+random(MAX_TENSION_GROW_IN_TIME); 
+const  float 	TALK_THRES_MAX:	0.9	// Speaking barrier: threshold=random(myWorld.params.TALK_THRES_MIN,TALK_THRES_MAX);
+const  float 	ADDING_PROBABILITY:	0.03	// Sometimes he also wants to add something and the probability of it is important.
+const  float 	FEEDBACK_FACTOR_MIN:	0.01	// The probability of feedback is a feature of the agent and is between MINIMUM... and FEEDBACK_FACTOR 
+const  float 	SKIPPING_DIVIDER:	2.0	// this.threshold/SKIPPING_DIVIDER decide when agent skip to finish planed sentences. 
+const  float 	PROP_FIN_MIN:	0.05	//
+       float 	PROP_FIN_MAX: 	0.15	// Activation by the number of scheduled text in the queue. propFin=random(PROP_FIN_MIN,PROP_FIN_MAX) 
+       float 	PROSOCIAL_MIN:	0.0	// The `proSocial` agent field is randomized within a range `(PROSOCIAL_MIN..ModelParameters::PROSOCIAL_MAX>` 
+       float 	PROSOCIAL_DEFAULT:	0.25	// but if `ModelParameters::PROSOCIAL_MAX` is `0.0` then it is set to `PROSOCIAL_DEFAULT` 
+const  float 	IF_MENTION_MIN:	0.33	//
+const  float 	IF_MENTION_MAX:	0.66	// ifMentioned=random(IF_MENTION_MIN,IF_MENTION_MAX);
+const  float 	MY_INTEREST_PROB_PER_LETTER:	0.009	// It controls the agent's interest in a statement in which HIS NAME IS NOT INCLUDED.
+
+       float 	TENSION_GROW_SCALER:	1.0	// The scaling must be calculated in the model init.
+const  float 	MAX_TENSION_GROW_IN_TIME:	0.5	// internalT*=1+random(MAX_TENSION_GROW_IN_TIME); 
+const  float 	TALK_THRES_MAX:	0.9	// Speaking barrier: threshold=random(myWorld.params.TALK_THRES_MIN,TALK_THRES_MAX);
+const  float 	ADDING_PROBABILITY:	0.03	// Sometimes he also wants to add something and the probability of it is important.
+const  float 	FEEDBACK_FACTOR_MIN:	0.01	// The probability of feedback is a feature of the agent and is between MINIMUM... and FEEDBACK_FACTOR 
+const  float 	SKIPPING_DIVIDER:	2.0	// this.threshold/SKIPPING_DIVIDER decide when agent skip to finish planed sentences. 
+const  float 	PROP_FIN_MIN:	0.05	//
+       float 	PROP_FIN_MAX: 	0.15	// Activation by the number of scheduled text in the queue. propFin=random(PROP_FIN_MIN,PROP_FIN_MAX) 
+       float 	PROSOCIAL_MIN:	0.0	// The `proSocial` agent field is randomized within a range `(PROSOCIAL_MIN..ModelParameters::PROSOCIAL_MAX>` 
+       float 	PROSOCIAL_DEFAULT:	0.25	// but if `ModelParameters::PROSOCIAL_MAX` is `0.0` then it is set to `PROSOCIAL_DEFAULT` 
+const  float 	IF_MENTION_MIN:	0.33	//
+const  float 	IF_MENTION_MAX:	0.66	// ifMentioned=random(IF_MENTION_MIN,IF_MENTION_MAX);
+const  float 	MY_INTEREST_PROB_PER_LETTER:	0.009	// It controls the agent's interest in a statement in which HIS NAME IS NOT INCLUDED.
+
+       float 	TENSION_GROW_SCALER:	1.0	// The scaling must be calculated in the model init.
+const  float 	MAX_TENSION_GROW_IN_TIME:	0.5	// internalT*=1+random(MAX_TENSION_GROW_IN_TIME); 
+const  float 	TALK_THRES_MAX:	0.9	// Speaking barrier: threshold=random(myWorld.params.TALK_THRES_MIN,TALK_THRES_MAX);
+const  float 	ADDING_PROBABILITY:	0.03	// Sometimes he also wants to add something and the probability of it is important.
+const  float 	FEEDBACK_FACTOR_MIN:	0.01	// The probability of feedback is a feature of the agent and is between MINIMUM... and FEEDBACK_FACTOR 
+const  float 	SKIPPING_DIVIDER:	2.0	// this.threshold/SKIPPING_DIVIDER decide when agent skip to finish planed sentences. 
+const  float 	PROP_FIN_MIN:	0.05	//
+       float 	PROP_FIN_MAX: 	0.15	// Activation by the number of scheduled text in the queue. propFin=random(PROP_FIN_MIN,PROP_FIN_MAX) 
+       float 	PROSOCIAL_MIN:	0.0	// The `proSocial` agent field is randomized within a range `(PROSOCIAL_MIN..ModelParameters::PROSOCIAL_MAX>` 
+       float 	PROSOCIAL_DEFAULT:	0.25	// but if `ModelParameters::PROSOCIAL_MAX` is `0.0` then it is set to `PROSOCIAL_DEFAULT` 
+const  float 	IF_MENTION_MIN:	0.33	//
+const  float 	IF_MENTION_MAX:	0.66	// ifMentioned=random(IF_MENTION_MIN,IF_MENTION_MAX);
+const  float 	MY_INTEREST_PROB_PER_LETTER:	0.009	// It controls the agent's interest in a statement in which HIS NAME IS NOT INCLUDED.
+
+       float 	TENSION_GROW_SCALER:	1.0	// The scaling must be calculated in the model init.
+const  float 	MAX_TENSION_GROW_IN_TIME:	0.5	// internalT*=1+random(MAX_TENSION_GROW_IN_TIME); 
+const  float 	TALK_THRES_MAX:	0.9	// Speaking barrier: threshold=random(myWorld.params.TALK_THRES_MIN,TALK_THRES_MAX);
+const  float 	ADDING_PROBABILITY:	0.03	// Sometimes he also wants to add something and the probability of it is important.
+const  float 	FEEDBACK_FACTOR_MIN:	0.01	// The probability of feedback is a feature of the agent and is between MINIMUM... and FEEDBACK_FACTOR 
+const  float 	SKIPPING_DIVIDER:	2.0	// this.threshold/SKIPPING_DIVIDER decide when agent skip to finish planed sentences. 
+const  float 	PROP_FIN_MIN:	0.05	//
+       float 	PROP_FIN_MAX: 	0.15	// Activation by the number of scheduled text in the queue. propFin=random(PROP_FIN_MIN,PROP_FIN_MAX) 
+       float 	PROSOCIAL_MIN:	0.0	// The `proSocial` agent field is randomized within a range `(PROSOCIAL_MIN..ModelParameters::PROSOCIAL_MAX>` 
+       float 	PROSOCIAL_DEFAULT:	0.25	// but if `ModelParameters::PROSOCIAL_MAX` is `0.0` then it is set to `PROSOCIAL_DEFAULT` 
+const  float 	IF_MENTION_MIN:	0.33	//
+const  float 	IF_MENTION_MAX:	0.66	// ifMentioned=random(IF_MENTION_MIN,IF_MENTION_MAX);
+const  float 	MY_INTEREST_PROB_PER_LETTER:	0.009	// It controls the agent's interest in a statement in which HIS NAME IS NOT INCLUDED.
+
+       float 	TENSION_GROW_SCALER:	1.0	// The scaling must be calculated in the model init.
+const  float 	MAX_TENSION_GROW_IN_TIME:	0.5	// internalT*=1+random(MAX_TENSION_GROW_IN_TIME); 
+const  float 	TALK_THRES_MAX:	0.9	// Speaking barrier: threshold=random(myWorld.params.TALK_THRES_MIN,TALK_THRES_MAX);
+const  float 	ADDING_PROBABILITY:	0.03	// Sometimes he also wants to add something and the probability of it is important.
+const  float 	FEEDBACK_FACTOR_MIN:	0.01	// The probability of feedback is a feature of the agent and is between MINIMUM... and FEEDBACK_FACTOR 
+const  float 	SKIPPING_DIVIDER:	2.0	// this.threshold/SKIPPING_DIVIDER decide when agent skip to finish planed sentences. 
+const  float 	PROP_FIN_MIN:	0.05	//
+       float 	PROP_FIN_MAX: 	0.15	// Activation by the number of scheduled text in the queue. propFin=random(PROP_FIN_MIN,PROP_FIN_MAX) 
+       float 	PROSOCIAL_MIN:	0.0	// The `proSocial` agent field is randomized within a range `(PROSOCIAL_MIN..ModelParameters::PROSOCIAL_MAX>` 
+       float 	PROSOCIAL_DEFAULT:	0.25	// but if `ModelParameters::PROSOCIAL_MAX` is `0.0` then it is set to `PROSOCIAL_DEFAULT` 
+const  float 	IF_MENTION_MIN:	0.33	//
+const  float 	IF_MENTION_MAX:	0.66	// ifMentioned=random(IF_MENTION_MIN,IF_MENTION_MAX);
+const  float 	MY_INTEREST_PROB_PER_LETTER:	0.009	// It controls the agent's interest in a statement in which HIS NAME IS NOT INCLUDED.
+
+       float 	TENSION_GROW_SCALER:	1.0	// The scaling must be calculated in the model init.
+const  float 	MAX_TENSION_GROW_IN_TIME:	0.5	// internalT*=1+random(MAX_TENSION_GROW_IN_TIME); 
+const  float 	TALK_THRES_MAX:	0.9	// Speaking barrier: threshold=random(myWorld.params.TALK_THRES_MIN,TALK_THRES_MAX);
+const  float 	ADDING_PROBABILITY:	0.03	// Sometimes he also wants to add something and the probability of it is important.
+const  float 	FEEDBACK_FACTOR_MIN:	0.01	// The probability of feedback is a feature of the agent and is between MINIMUM... and FEEDBACK_FACTOR 
+const  float 	SKIPPING_DIVIDER:	2.0	// this.threshold/SKIPPING_DIVIDER decide when agent skip to finish planed sentences. 
+const  float 	PROP_FIN_MIN:	0.05	//
+       float 	PROP_FIN_MAX: 	0.15	// Activation by the number of scheduled text in the queue. propFin=random(PROP_FIN_MIN,PROP_FIN_MAX) 
+       float 	PROSOCIAL_MIN:	0.0	// The `proSocial` agent field is randomized within a range `(PROSOCIAL_MIN..ModelParameters::PROSOCIAL_MAX>` 
+       float 	PROSOCIAL_DEFAULT:	0.25	// but if `ModelParameters::PROSOCIAL_MAX` is `0.0` then it is set to `PROSOCIAL_DEFAULT` 
+const  float 	IF_MENTION_MIN:	0.33	//
+const  float 	IF_MENTION_MAX:	0.66	// ifMentioned=random(IF_MENTION_MIN,IF_MENTION_MAX);
+const  float 	MY_INTEREST_PROB_PER_LETTER:	0.009	// It controls the agent's interest in a statement in which HIS NAME IS NOT INCLUDED.
+
+       float 	TENSION_GROW_SCALER:	1.0	// The scaling must be calculated in the model init.
+const  float 	MAX_TENSION_GROW_IN_TIME:	0.5	// internalT*=1+random(MAX_TENSION_GROW_IN_TIME); 
+const  float 	TALK_THRES_MAX:	0.9	// Speaking barrier: threshold=random(myWorld.params.TALK_THRES_MIN,TALK_THRES_MAX);
+const  float 	ADDING_PROBABILITY:	0.03	// Sometimes he also wants to add something and the probability of it is important.
+const  float 	FEEDBACK_FACTOR_MIN:	0.01	// The probability of feedback is a feature of the agent and is between MINIMUM... and FEEDBACK_FACTOR 
+const  float 	SKIPPING_DIVIDER:	2.0	// this.threshold/SKIPPING_DIVIDER decide when agent skip to finish planed sentences. 
+const  float 	PROP_FIN_MIN:	0.05	//
+       float 	PROP_FIN_MAX: 	0.15	// Activation by the number of scheduled text in the queue. propFin=random(PROP_FIN_MIN,PROP_FIN_MAX) 
+       float 	PROSOCIAL_MIN:	0.0	// The `proSocial` agent field is randomized within a range `(PROSOCIAL_MIN..ModelParameters::PROSOCIAL_MAX>` 
+       float 	PROSOCIAL_DEFAULT:	0.25	// but if `ModelParameters::PROSOCIAL_MAX` is `0.0` then it is set to `PROSOCIAL_DEFAULT` 
+const  float 	IF_MENTION_MIN:	0.33	//
+const  float 	IF_MENTION_MAX:	0.66	// ifMentioned=random(IF_MENTION_MIN,IF_MENTION_MAX);
+const  float 	MY_INTEREST_PROB_PER_LETTER:	0.009	// It controls the agent's interest in a statement in which HIS NAME IS NOT INCLUDED.
+
+       float 	TENSION_GROW_SCALER:	1.0	// The scaling must be calculated in the model init.
+const  float 	MAX_TENSION_GROW_IN_TIME:	0.5	// internalT*=1+random(MAX_TENSION_GROW_IN_TIME); 
+const  float 	TALK_THRES_MAX:	0.9	// Speaking barrier: threshold=random(myWorld.params.TALK_THRES_MIN,TALK_THRES_MAX);
+const  float 	ADDING_PROBABILITY:	0.03	// Sometimes he also wants to add something and the probability of it is important.
+const  float 	FEEDBACK_FACTOR_MIN:	0.01	// The probability of feedback is a feature of the agent and is between MINIMUM... and FEEDBACK_FACTOR 
+const  float 	SKIPPING_DIVIDER:	2.0	// this.threshold/SKIPPING_DIVIDER decide when agent skip to finish planed sentences. 
+const  float 	PROP_FIN_MIN:	0.05	//
+       float 	PROP_FIN_MAX: 	0.15	// Activation by the number of scheduled text in the queue. propFin=random(PROP_FIN_MIN,PROP_FIN_MAX) 
+       float 	PROSOCIAL_MIN:	0.0	// The `proSocial` agent field is randomized within a range `(PROSOCIAL_MIN..ModelParameters::PROSOCIAL_MAX>` 
+       float 	PROSOCIAL_DEFAULT:	0.25	// but if `ModelParameters::PROSOCIAL_MAX` is `0.0` then it is set to `PROSOCIAL_DEFAULT` 
+const  float 	IF_MENTION_MIN:	0.33	//
+const  float 	IF_MENTION_MAX:	0.66	// ifMentioned=random(IF_MENTION_MIN,IF_MENTION_MAX);
+const  float 	MY_INTEREST_PROB_PER_LETTER:	0.009	// It controls the agent's interest in a statement in which HIS NAME IS NOT INCLUDED.
+
+       float 	TENSION_GROW_SCALER:	1.0	// The scaling must be calculated in the model init.
+const  float 	MAX_TENSION_GROW_IN_TIME:	0.5	// internalT*=1+random(MAX_TENSION_GROW_IN_TIME); 
+const  float 	TALK_THRES_MAX:	0.9	// Speaking barrier: threshold=random(myWorld.params.TALK_THRES_MIN,TALK_THRES_MAX);
+const  float 	ADDING_PROBABILITY:	0.03	// Sometimes he also wants to add something and the probability of it is important.
+const  float 	FEEDBACK_FACTOR_MIN:	0.01	// The probability of feedback is a feature of the agent and is between MINIMUM... and FEEDBACK_FACTOR 
+const  float 	SKIPPING_DIVIDER:	2.0	// this.threshold/SKIPPING_DIVIDER decide when agent skip to finish planed sentences. 
+const  float 	PROP_FIN_MIN:	0.05	//
+       float 	PROP_FIN_MAX: 	0.15	// Activation by the number of scheduled text in the queue. propFin=random(PROP_FIN_MIN,PROP_FIN_MAX) 
+       float 	PROSOCIAL_MIN:	0.0	// The `proSocial` agent field is randomized within a range `(PROSOCIAL_MIN..ModelParameters::PROSOCIAL_MAX>` 
+       float 	PROSOCIAL_DEFAULT:	0.25	// but if `ModelParameters::PROSOCIAL_MAX` is `0.0` then it is set to `PROSOCIAL_DEFAULT` 
+const  float 	IF_MENTION_MIN:	0.33	//
+const  float 	IF_MENTION_MAX:	0.66	// ifMentioned=random(IF_MENTION_MIN,IF_MENTION_MAX);
+const  float 	MY_INTEREST_PROB_PER_LETTER:	0.009	// It controls the agent's interest in a statement in which HIS NAME IS NOT INCLUDED.
+
+       float 	TENSION_GROW_SCALER:	1.0	// The scaling must be calculated in the model init.
+const  float 	MAX_TENSION_GROW_IN_TIME:	0.5	// internalT*=1+random(MAX_TENSION_GROW_IN_TIME); 
+const  float 	TALK_THRES_MAX:	0.9	// Speaking barrier: threshold=random(myWorld.params.TALK_THRES_MIN,TALK_THRES_MAX);
+const  float 	ADDING_PROBABILITY:	0.03	// Sometimes he also wants to add something and the probability of it is important.
+const  float 	FEEDBACK_FACTOR_MIN:	0.01	// The probability of feedback is a feature of the agent and is between MINIMUM... and FEEDBACK_FACTOR 
+const  float 	SKIPPING_DIVIDER:	2.0	// this.threshold/SKIPPING_DIVIDER decide when agent skip to finish planed sentences. 
+const  float 	PROP_FIN_MIN:	0.05	//
+       float 	PROP_FIN_MAX: 	0.15	// Activation by the number of scheduled text in the queue. propFin=random(PROP_FIN_MIN,PROP_FIN_MAX) 
+       float 	PROSOCIAL_MIN:	0.0	// The `proSocial` agent field is randomized within a range `(PROSOCIAL_MIN..ModelParameters::PROSOCIAL_MAX>` 
+       float 	PROSOCIAL_DEFAULT:	0.25	// but if `ModelParameters::PROSOCIAL_MAX` is `0.0` then it is set to `PROSOCIAL_DEFAULT` 
+const  float 	IF_MENTION_MIN:	0.33	//
+const  float 	IF_MENTION_MAX:	0.66	// ifMentioned=random(IF_MENTION_MIN,IF_MENTION_MAX);
+const  float 	MY_INTEREST_PROB_PER_LETTER:	0.009	// It controls the agent's interest in a statement in which HIS NAME IS NOT INCLUDED.
+
+       float 	TENSION_GROW_SCALER:	1.0	// The scaling must be calculated in the model init.
+const  float 	MAX_TENSION_GROW_IN_TIME:	0.5	// internalT*=1+random(MAX_TENSION_GROW_IN_TIME); 
+const  float 	TALK_THRES_MAX:	0.9	// Speaking barrier: threshold=random(myWorld.params.TALK_THRES_MIN,TALK_THRES_MAX);
+const  float 	ADDING_PROBABILITY:	0.03	// Sometimes he also wants to add something and the probability of it is important.
+const  float 	FEEDBACK_FACTOR_MIN:	0.01	// The probability of feedback is a feature of the agent and is between MINIMUM... and FEEDBACK_FACTOR 
+const  float 	SKIPPING_DIVIDER:	2.0	// this.threshold/SKIPPING_DIVIDER decide when agent skip to finish planed sentences. 
+const  float 	PROP_FIN_MIN:	0.05	//
+       float 	PROP_FIN_MAX: 	0.15	// Activation by the number of scheduled text in the queue. propFin=random(PROP_FIN_MIN,PROP_FIN_MAX) 
+       float 	PROSOCIAL_MIN:	0.0	// The `proSocial` agent field is randomized within a range `(PROSOCIAL_MIN..ModelParameters::PROSOCIAL_MAX>` 
+       float 	PROSOCIAL_DEFAULT:	0.25	// but if `ModelParameters::PROSOCIAL_MAX` is `0.0` then it is set to `PROSOCIAL_DEFAULT` 
+const  float 	IF_MENTION_MIN:	0.33	//
+const  float 	IF_MENTION_MAX:	0.66	// ifMentioned=random(IF_MENTION_MIN,IF_MENTION_MAX);
+const  float 	MY_INTEREST_PROB_PER_LETTER:	0.009	// It controls the agent's interest in a statement in which HIS NAME IS NOT INCLUDED.
+
+       float 	TENSION_GROW_SCALER:	1.0	// The scaling must be calculated in the model init.
+const  float 	MAX_TENSION_GROW_IN_TIME:	0.5	// internalT*=1+random(MAX_TENSION_GROW_IN_TIME); 
+const  float 	TALK_THRES_MAX:	0.9	// Speaking barrier: threshold=random(myWorld.params.TALK_THRES_MIN,TALK_THRES_MAX);
+const  float 	ADDING_PROBABILITY:	0.03	// Sometimes he also wants to add something and the probability of it is important.
+const  float 	FEEDBACK_FACTOR_MIN:	0.01	// The probability of feedback is a feature of the agent and is between MINIMUM... and FEEDBACK_FACTOR 
+const  float 	SKIPPING_DIVIDER:	2.0	// this.threshold/SKIPPING_DIVIDER decide when agent skip to finish planed sentences. 
+const  float 	PROP_FIN_MIN:	0.05	//
+       float 	PROP_FIN_MAX: 	0.15	// Activation by the number of scheduled text in the queue. propFin=random(PROP_FIN_MIN,PROP_FIN_MAX) 
+       float 	PROSOCIAL_MIN:	0.0	// The `proSocial` agent field is randomized within a range `(PROSOCIAL_MIN..ModelParameters::PROSOCIAL_MAX>` 
+       float 	PROSOCIAL_DEFAULT:	0.25	// but if `ModelParameters::PROSOCIAL_MAX` is `0.0` then it is set to `PROSOCIAL_DEFAULT` 
+const  float 	IF_MENTION_MIN:	0.33	//
+const  float 	IF_MENTION_MAX:	0.66	// ifMentioned=random(IF_MENTION_MIN,IF_MENTION_MAX);
+const  float 	MY_INTEREST_PROB_PER_LETTER:	0.009	// It controls the agent's interest in a statement in which HIS NAME IS NOT INCLUDED.
+
