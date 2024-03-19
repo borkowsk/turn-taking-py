@@ -9,7 +9,8 @@ from itertools import chain
 import numpy as np
 import pandas as pd
 
-wb_level = 0  # Log level for this file
+wb_level = 0  # Local level of verbosity
+
 PathLike = str | bytes | os.PathLike
 
 class Dataloader:
@@ -59,6 +60,8 @@ class Dataloader:
         """
         self.path = Path(path).absolute()
         self.propmap = propmap
+        if wb_level > 1:
+            print("PROPERTY MAP:",self.propmap)
         if self.propmap:
             self.propmap = pd.read_csv(propmap, sep=None, engine="python") \
                 .drop_duplicates() \
@@ -73,6 +76,8 @@ class Dataloader:
             else tuple(patterns)
         self.dtfmt = dtfmt
         self.csv_kws = { **(csv_kws or {}), **kwds }
+        if wb_level > 0:
+            print("Self path:",self)
 
     def __repr__(self) -> str:
         cn = self.__class__.__name__
@@ -171,6 +176,7 @@ class Dataloader:
 
         if self.propmap is not None:
             df.insert(0, "condition", self.propmap.loc[path.stem, "condition"])
+
         df.insert(0, "ts", ts)
         df.insert(0, "fname", f"{path.stem}{path.suffix}")
         duration = (df["end"] - df["start"]).dt.total_seconds()

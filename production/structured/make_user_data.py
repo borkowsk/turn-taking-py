@@ -5,14 +5,13 @@ from tqdm import tqdm
 from tt.dataloader import Dataloader
 from tt.metrics import Metrics
 
-
 HERE = Path(__file__).parent
 DATA = HERE/"data"
-RAW  = DATA/"raw"
+RAWD = DATA/"raw"
 META = DATA/"meta"
 
-config  = dict(header=None)
-dloader = Dataloader(RAW, META/"propmap-groups.csv", **config)
+configd = dict(header=None)
+dloader = Dataloader(RAWD, META/"propmap-groups.csv", **configd)
 
 U = pd.concat([
     Metrics(df).dump(mode="user")

@@ -5,17 +5,17 @@ from tqdm import tqdm
 from tt.dataloader import Dataloader
 from tt.metrics import Metrics
 
-
 HERE = Path(__file__).parent
 DATA = HERE/"data"
-RAW  = DATA/"raw"
+RAWD = DATA/"raw"
 
 config = dict(
     header=0,
     usecols=("Tier", "Begin time [ss.ms]", "End time [ss.ms]", "content"),
     dtfmt="%Y.%m.%d_%H.%M"
 )
-dloader = Dataloader(RAW, **config)
+
+dloader = Dataloader(RAWD, **config)
 
 U = pd.concat([
     Metrics(df).dump(mode="user")

@@ -6,21 +6,22 @@ from tt.dataloader import Dataloader
 from tt.metrics import Metrics
 from tt.uniseq import Uniseq
 
-wb_level = 1  # Level of verbosity
+wb_level = 1  # Local level of verbosity
 
 HERE = Path(__file__).parent
 DATA = HERE/"data"
-RAWD = DATA/"raw"
-META = DATA/"meta"
+META = DATA/"meta"  # Note: Each raw data file must be registered in the "meta" dictionary first!
+RAWD = DATA/"raw"   # Raw data files are here.
+# RAWD = DATA/"simulation/s_A4F0.67B0.97T0.8H_17108469738/ref" -- Test(s)!
 
 if wb_level > 0:
-    print("\nCONFIGURATION:\n\t",DATA,"\n\t",META,"\n\t",RAWD)
+    print("\nCONFIGURATION:\n\t", DATA, "\n\t", META, "\n\t", RAWD)
 
 if wb_level > 0:
     print("\nLOADING DATA from", META/"propmap-groups.csv")
-config  = dict(header=None)
-dloader = Dataloader(RAWD, META/"propmap-groups.csv", **config)
-df = list(dloader)[0]
+configd = dict(header=None)
+dloader = Dataloader(RAWD, META/"propmap-groups.csv", **configd)  # ; print(dloader,"???")
+df = list(dloader)[0]                                            # ; print(df,"???")
 
 if wb_level > 0:
     print("\nMAKING RAW GROUPS in ", DATA/"groups-raw.tsv")
