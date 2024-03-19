@@ -85,11 +85,15 @@ synchronizowane.
 
 ## Stosowanie do innych zbiorów danych
 
-Tak długo, jak pliki wsadowe będą miały dokładnie taką samą strukturę,
+Tak długo, jak nowe pliki danych będą miały dokładnie taką samą strukturę,
 jak te, które są obecnie w repozytorium w podkatalogach `data/raw`,
 tak długo kod powinien działać poprawnie.
 
-**UWAGA.** Cały software pisałem z założeniem, że nie będzie on później
+**Trzeba pamietać** żeby każdy nowy plik danych rejestrować w słowniku w
+`data/meta`. Nie zarejestrowane pliki danych powoduja "BUM" :-)
+
+**UWAGA.** _Cały software pisałem z założeniem, że nie będzie on później
 używany, przez co architektura jest zdecydowanie nieoptymalna i
 wprowadzanie zmian do logiki może nie być takie proste
-(ale na pewno jest możliwe).
+(ale na pewno jest możliwe)._
+[Sz.T]
